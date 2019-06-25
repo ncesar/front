@@ -489,3 +489,133 @@
 
 /* FIM SLIDER */
 
+$('.gallery-responsive').slick({
+  dots: false,
+  infinite: false,
+  speed: 300,
+  slidesToShow: 3,
+  slidesToScroll: 3,
+  responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 3,
+        infinite: false,
+        dots: false
+      }
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 3
+      }
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1
+      }
+    }
+    // You can unslick at a given breakpoint now by adding:
+    // settings: "unslick"
+    // instead of a settings object
+  ]
+});
+
+$(document).ready(function(){
+  $(".accordion").on("click", ".heading", function() {
+
+  $(this).toggleClass("active").next().slideToggle();
+
+  $(".contents").not($(this).next()).slideUp(300);
+               
+  $(this).siblings().removeClass("active");
+  });
+ });
+      
+
+ $(document).ready(function(){
+  // Button variable
+  var $btn = $('#btnSubmit'),
+  // Input fields variable
+      $fields = $('.form-control');
+  // on() method & click event
+  $btn.on('click', function(){
+    
+    $fields.each(function(){
+      var value = $(this).val();
+      if (value == '') {
+        $(this).addClass('error');
+        $(this).parent().find('.validation').show(1000);
+      } else {
+        $(this).removeClass('error');
+        $(this).parent().find('.validation').hide(1000);
+      }
+    });
+    var errorCount = $('.error').length;
+    if (errorCount == 0) {
+      $btn.prop('disabled', true).text('Loading...');
+    }
+  });
+  
+  $("span.holder + input").keyup(function() {
+    if($(this).val().length) {
+        $(this).prev('span.holder').hide();
+    } else {
+        $(this).prev('span.holder').show();
+    }
+});
+$("span.holder + textarea").keyup(function() {
+  if($(this).val().length) {
+      $(this).prev('span.holder').hide();
+  } else {
+      $(this).prev('span.holder').show();
+  }
+});
+$("span.holder").click(function() {
+    $(this).next().focus();
+});
+
+//mask
+
+$("input[name='masknumber']").on("keyup", function(){
+  $("input[name='number']").val(destroyMask(this.value));
+  this.value = createMask($("input[name='number']").val());
+})
+
+function createMask(string){
+console.log(string)
+return string.replace(/(\d{2})(\d{4})(\d{5})/,"$1-$2-$3");
+}
+
+function destroyMask(string){
+console.log(string)
+return string.replace(/\D/g,'').substring(0, 11);
+}
+
+  $("a").on('click', function(event) {
+
+    // Make sure this.hash has a value before overriding default behavior
+    if (this.hash !== "") {
+      // Prevent default anchor click behavior
+      event.preventDefault();
+
+      // Store hash
+      var hash = this.hash;
+
+      // Using jQuery's animate() method to add smooth page scroll
+      // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+      $('html, body').animate({
+        scrollTop: $(hash).offset().top
+      }, 800, function(){
+
+        // Add hash (#) to URL when done scrolling (default click behavior)
+        window.location.hash = hash;
+      });
+    } // End if
+  });
+
+});
